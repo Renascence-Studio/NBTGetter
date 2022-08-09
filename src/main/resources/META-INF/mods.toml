@@ -1,0 +1,16 @@
+modLoader="javafml"
+loaderVersion="[40,)"
+license="MIT"
+[[mods]]
+modId="infogetter"
+version="${file.jarVersion}"
+displayName="Info Getter"
+authors="Renascence-Studio,Chemiofitor"
+
+[[dependencies.infogetter]]
+   modId="forge"
+   mandatory=true
+   versionRange="[40,)"
+   ordering="NONE"
+   side="BOTH"
+
