@@ -8,6 +8,10 @@ import java.util.Objects;
 
 public class DatapackInfo extends BaseInfo {
 
+    public DatapackInfo() {
+        super("datapack");
+    }
+
     @Override
     public int send(ServerPlayer player, ItemStack stack) {
         var uuid = player.getUUID();
@@ -22,6 +26,8 @@ public class DatapackInfo extends BaseInfo {
 
         player.sendMessage(colorText(name +" Info"+"(Datapack)"+": ", ChatFormatting.GREEN), uuid);
 
+        player.sendMessage(copy("-Name ", itemRL.getPath()), uuid);
+        player.sendMessage(copy("-UName ", "\""+itemRL.getPath()+"\""), uuid);
         player.sendMessage(copy("-ID ", formatting("item", itemRL.toString())), uuid);
         if (stack.getCount() != 1)
             player.sendMessage(copy("-Count ", formatting("count", String.valueOf(stack.getCount()))), uuid);
@@ -37,6 +43,11 @@ public class DatapackInfo extends BaseInfo {
         if (stack.getTag() != null)
             player.sendMessage(copy("-NBT ", formatting("nbt", stack.getTag().toString())), uuid);
         return 0;
+    }
+
+    @Override
+    public BaseInfo create() {
+        return new DatapackInfo();
     }
 
     protected String formatting(String head, String itemRL) {

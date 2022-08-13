@@ -1,5 +1,6 @@
 {
   "text.infogetter.air": "The item you selected can`t be null!",
   "text.infogetter.more": "The item you selected has no more info!",
+  "text.infogetter.container": "The item you selected has no container info!",
   "text.infogetter.copy": "(Click to copy the blue part)"
 }

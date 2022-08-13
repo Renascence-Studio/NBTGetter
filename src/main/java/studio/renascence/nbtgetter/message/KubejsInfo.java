@@ -8,6 +8,10 @@ import java.util.Objects;
 
 public class KubejsInfo extends BaseInfo {
 
+    public KubejsInfo() {
+        super("kubejs");
+    }
+
     @Override
     public int send(ServerPlayer player, ItemStack stack) {
         var uuid = player.getUUID();
@@ -44,6 +48,11 @@ public class KubejsInfo extends BaseInfo {
             player.sendMessage(copy("-Tab ", formatting("%", tab.getRecipeFolderName())), uuid);
 
         return 0;
+    }
+
+    @Override
+    public BaseInfo create() {
+        return new KubejsInfo();
     }
 
     protected String formatting(String head, String itemRL) {

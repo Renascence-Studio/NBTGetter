@@ -8,6 +8,11 @@ import net.minecraft.world.item.ItemStack;
 import java.util.Objects;
 
 public class CommonInfo extends BaseInfo {
+
+    public CommonInfo() {
+        super("common");
+    }
+
     @Override
     public int send(ServerPlayer player, ItemStack stack) {
         var uuid = player.getUUID();
@@ -31,5 +36,10 @@ public class CommonInfo extends BaseInfo {
         player.sendMessage(copy("-MaxStackSize ", String.valueOf(stack.getMaxStackSize())), uuid);
 
         return 0;
+    }
+
+    @Override
+    public BaseInfo create() {
+        return new CommonInfo();
     }
 }

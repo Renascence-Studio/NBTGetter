@@ -1,5 +1,6 @@
 {
   "text.infogetter.air": "选取的物品不能为空！",
   "text.infogetter.more": "选取的物品没有更多的信息！",
+  "text.infogetter.container": "选取的物品没有容器信息！",
   "text.infogetter.copy": "（点击复制该行蓝色部分）"
 }

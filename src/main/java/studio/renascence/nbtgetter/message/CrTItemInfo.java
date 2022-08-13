@@ -7,6 +7,11 @@ import net.minecraft.world.item.ItemStack;
 import java.util.Objects;
 
 public class CrTItemInfo extends BaseInfo {
+
+    public CrTItemInfo() {
+        super("crt");
+    }
+
     @Override
     public int send(ServerPlayer player, ItemStack stack) {
         var uuid = player.getUUID();
@@ -54,6 +59,11 @@ public class CrTItemInfo extends BaseInfo {
         }
 
         return 0;
+    }
+
+    @Override
+    public BaseInfo create() {
+        return new CrTItemInfo();
     }
 
     protected String formatting(String head, String itemRL) {

@@ -1,16 +1,21 @@
 package studio.renascence.nbtgetter.message;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Registry;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraftforge.common.ForgeHooks;
 
-import java.util.HashSet;
 import java.util.Objects;
 
 public class MoreInfo extends BaseInfo {
+
+    public MoreInfo() {
+        super("more");
+    }
+
     @Override
     public int send(ServerPlayer player, ItemStack stack) {
         var uuid = player.getUUID();
@@ -27,6 +32,18 @@ public class MoreInfo extends BaseInfo {
 
         if (stack.getTag() != null) {
             player.sendMessage(copy("-NBT ", String.valueOf(stack.getTag())), uuid);
+            flag = false;
+        }
+        if (stack.getItem() instanceof BlockItem blockItem && BlockItem.BY_BLOCK.get(blockItem.getBlock()) != null) {
+            player.sendMessage(copy("-IsBlockItem ", String.valueOf(true)), uuid);
+            flag = false;
+        }
+        if (ForgeHooks.getBurnTime(stack, RecipeType.SMELTING) > 0) {
+            player.sendMessage(copy("-IsFuel ", String.valueOf(true)), uuid);
+            player.sendMessage(copy("-BurnTime ", String.valueOf(ForgeHooks.getBurnTime(stack, RecipeType.SMELTING))), uuid);
+            if (stack.getCount() > 1) {
+                player.sendMessage(copy("-TotalBurnTime ", String.valueOf(ForgeHooks.getBurnTime(stack, RecipeType.SMELTING)*stack.getCount())), uuid);
+            }
             flag = false;
         }
         if (stack.isEnchanted()) {
@@ -49,14 +66,11 @@ public class MoreInfo extends BaseInfo {
             player.sendMessage(colorTrans("text.infogetter.more", ChatFormatting.RED), uuid);
         }
 
-        Registry<Item> registry = Registry.ITEM;
-        var list =  registry.getTagNames().toList();
-        var set = new HashSet<ItemStack>();
-        for (var tag :list){
-            set.add(registry.get(tag.location()).getDefaultInstance());
-        }
-
-
         return 0;
+    }
+
+    @Override
+    public BaseInfo create() {
+        return new MoreInfo();
     }
 }
